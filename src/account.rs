@@ -168,6 +168,13 @@ mod tests {
     assert_eq!(at.available(), dec!(1000.5));
     assert_eq!(at.total(), dec!(1000.5));
 
+    // try to double resolve
+    at.resolve(deposit_id);
+    // ensure nothing happened
+    assert_eq!(at.held(), dec!(0));
+    assert_eq!(at.available(), dec!(1000.5));
+    assert_eq!(at.total(), dec!(1000.5));
+
     // withdraw some money
     let withdraw_id = at.withdrawal(dec!(20));
     assert_eq!(at.total(), dec!(980.5));
@@ -194,6 +201,13 @@ mod tests {
     assert_eq!(at.available(), dec!(980.5));
     assert_eq!(at.total(), dec!(980.5));
     assert!(at.locked());
+
+    // try to deposit on a locked account
+    at.deposit(dec!(10000000));
+    // ensure nothing happened
+    assert_eq!(at.held(), dec!(0));
+    assert_eq!(at.available(), dec!(980.5));
+    assert_eq!(at.total(), dec!(980.5));
   }
 }
 
