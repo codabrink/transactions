@@ -208,6 +208,13 @@ mod tests {
     assert_eq!(at.held(), dec!(0));
     assert_eq!(at.available(), dec!(980.5));
     assert_eq!(at.total(), dec!(980.5));
+
+    // try to withdraw on a locked account
+    at.withdrawal(at.available());
+    // ensure nothing happened
+    assert_eq!(at.held(), dec!(0));
+    assert_eq!(at.available(), dec!(980.5));
+    assert_eq!(at.total(), dec!(980.5));
   }
 }
 
