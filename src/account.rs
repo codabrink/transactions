@@ -79,7 +79,6 @@ impl Account {
     if let Some(amount) = tx.amount {
       if self.available >= amount {
         self.available -= amount;
-        self.transactions.insert(tx.id, tx);
       }
     }
   }
