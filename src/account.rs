@@ -215,6 +215,15 @@ mod tests {
     assert_eq!(at.held(), dec!(0));
     assert_eq!(at.available(), dec!(980.5));
     assert_eq!(at.total(), dec!(980.5));
+
+    // start a new account, let's go into the red.
+    // should this be possible?
+    at.client += 1;
+    let deposit_id = at.deposit(dec!(100));
+    at.withdrawal(at.available());
+    at.dispute(deposit_id);
+    at.chargeback(deposit_id);
+    assert_eq!(at.total(), dec!(-100));
   }
 }
 
