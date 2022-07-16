@@ -1,14 +1,16 @@
 use crate::account::{AccountId, AccountsExt};
 use crate::Accounts;
 use anyhow::Result;
-use csv::Reader;
+use csv::ReaderBuilder;
 use rust_decimal::Decimal;
 use serde::Deserialize;
 use std::io;
 
 pub type TxId = u32;
 pub fn process(accounts: &mut Accounts, reader: impl io::Read) -> Result<()> {
-  let mut reader = Reader::from_reader(reader);
+  let mut reader = ReaderBuilder::new()
+    .trim(csv::Trim::All)
+    .from_reader(reader);
 
   for tx in reader.deserialize() {
     let tx: Transaction = tx?;
