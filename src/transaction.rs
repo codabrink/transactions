@@ -49,7 +49,7 @@ mod tests {
 
   #[test]
   fn parse_all_transaction_types() {
-    let csv = "type,client,tx,amount\ndeposit,1,1,10.0\nwithdrawal,1,2,0.5\ndispute,1,1,\nresolve,1,1,\ndispute,1,1,\nchargeback,1,1,\n";
+    let csv = "type,client , tx,amount\ndeposit,1,1, 10.0 \nwithdrawal,1,2,0.5\ndispute,1,1,\nresolve,1,1,\ndispute,1,1,\nchargeback,1,1,\n";
 
     let mut accounts = Accounts::new();
     let _ = process(&mut accounts, csv.as_bytes());
